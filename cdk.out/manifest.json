@@ -1,0 +1,2049 @@
+{
+  "version": "13.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "jingood2-vod.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "jingood2-vod.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "jingood2-vod": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "jingood2-vod.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1ba6bf1c888d40ca3f361921023b0b76fd8f6e9e19ede11c79b6d3842695eeb1.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "jingood2-vod.assets"
+        ],
+        "stackName": "dev-jingood2-vod"
+      },
+      "dependencies": [
+        "jingood2-vod.assets"
+      ],
+      "metadata": {
+        "/jingood2-vod/CloudFrontOriginAccessIdentities/CloudfrontDestinationOriginAccessIdentity/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudFrontOriginAccessIdentitiesCloudfrontDestinationOriginAccessIdentityC5A4B16F",
+            "trace": [
+              "new OriginAccessIdentity (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-cloudfront/lib/origin-access-identity.ts:80:21)",
+              "new CloudfrontOriginAccessIdentities (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cloudfront-origin-access-identities.ts:15:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:43:7)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/DynamoDbTables/VideoInfoDynamoDbTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DynamoDbTablesVideoInfoDynamoDbTable58A9E9E1",
+            "trace": [
+              "new DynamoDbTables (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/dynamodb-tables.ts:17:22)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:51:28)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/KmsKeys/SnsKmsMasterKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KmsKeysSnsKmsMasterKey326B8D82",
+            "trace": [
+              "new Key (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:401:22)",
+              "new KmsKeys (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/kms-keys.ts:15:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:59:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/KmsKeys/SnsKmsMasterKey/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KmsKeysSnsKmsMasterKeyAlias252485D7",
+            "trace": [
+              "new Alias (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/alias.ts:143:22)",
+              "Key.addAlias (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:72:19)",
+              "new Key (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:418:12)",
+              "new KmsKeys (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/kms-keys.ts:15:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:59:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/KmsKeys/SqsKmsMasterKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KmsKeysSqsKmsMasterKey2775173E",
+            "trace": [
+              "new Key (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:401:22)",
+              "new KmsKeys (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/kms-keys.ts:19:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:59:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/KmsKeys/SqsKmsMasterKey/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KmsKeysSqsKmsMasterKeyAlias75A0C66C",
+            "trace": [
+              "new Alias (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/alias.ts:143:22)",
+              "Key.addAlias (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:72:19)",
+              "new Key (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-kms/lib/key.ts:418:12)",
+              "new KmsKeys (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/kms-keys.ts:19:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:59:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/S3Buckets/LogsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketsLogsBucket9F3A5E35",
+            "trace": [
+              "new Bucket (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:713:22)",
+              "new S3Buckets (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/s3-buckets.ts:17:17)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:67:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/S3Buckets/DestinationBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketsDestinationBucketD831CA48",
+            "trace": [
+              "new Bucket (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:713:22)",
+              "new S3Buckets (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/s3-buckets.ts:25:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:67:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/S3Buckets/DestinationBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketsDestinationBucketPolicy13B47D21",
+            "trace": [
+              "new BucketPolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-s3/lib/bucket-policy.ts:30:21)",
+              "Bucket.addToResourcePolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:227:21)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:207:27)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/S3Buckets/SourceBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketsSourceBucket4A23DAD8",
+            "trace": [
+              "new Bucket (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:713:22)",
+              "new S3Buckets (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/s3-buckets.ts:42:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:67:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/SnsTopics/Notifications/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SnsTopicsNotificationsDE98E041",
+            "trace": [
+              "new Topic (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-sns/lib/topic.ts:66:22)",
+              "new SnsTopics (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/sns-topics.ts:18:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:71:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/SnsTopics/Notifications/jingood2@gmail.com/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SnsTopicsNotificationsjingood2gmailcomD79D7C2F",
+            "trace": [
+              "new Subscription (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-sns/lib/subscription.ts:70:5)",
+              "Topic.addSubscription (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-sns/lib/topic-base.ts:58:5)",
+              "new SnsTopics (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/sns-topics.ts:23:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:71:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/SqsQueues/SqsDeadLetterQueue/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SqsQueuesSqsDeadLetterQueueB220E2ED",
+            "trace": [
+              "new Queue (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-sqs/lib/queue.ts:178:19)",
+              "new SqsQueues (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/sqs-queues.ts:18:23)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:77:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/SqsQueues/MainSqsQueue/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SqsQueuesMainSqsQueue3DF56461",
+            "trace": [
+              "new Queue (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-sqs/lib/queue.ts:178:19)",
+              "new SqsQueues (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/sqs-queues.ts:24:17)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:77:23)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CloudFronts/CloudFrontDistributionCachePolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudFrontsCloudFrontDistributionCachePolicyF0FE97E0",
+            "trace": [
+              "new CachePolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-cloudfront/lib/cache-policy.ts:86:22)",
+              "new CloudFronts (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cloudfronts.ts:82:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:82:25)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CloudFronts/CloudFrontDistribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudFrontsCloudFrontDistribution221CB5B5",
+            "trace": [
+              "new Distribution (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-cloudfront/lib/distribution.ts:165:26)",
+              "new CloudFronts (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cloudfronts.ts:59:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:82:25)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/ArchiveSourceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesArchiveSourceRoleE62C021F",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:33:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/CustomResourceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesCustomResourceRole7D5864F5",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:42:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/DynamoUpdateRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesDynamoUpdateRole5280FBC7",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:51:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/EncodeRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesEncodeRole27839FDD",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:60:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/ErrorHandlerRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesErrorHandlerRole4EC25F0C",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:69:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/ErrorHandlerRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesErrorHandlerRoleDefaultPolicy63EE2D6E",
+            "trace": [
+              "new Policy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/policy.ts:89:22)",
+              "Role.addToPrincipalPolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:236:28)",
+              "Role.addToPolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:244:17)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:78:23)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/InputValidateRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesInputValidateRoleE2145049",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:82:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/MediaConvertRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesMediaConvertRoleDBD25335",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:91:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/MediaInfoRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesMediaInfoRole0F5707D7",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:100:22)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/MediaPackageAssetsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesMediaPackageAssetsRoleF5840CEC",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:109:31)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/MediaPackageVodRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesMediaPackageVodRole2F296B82",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:118:28)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/OutputValidateRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesOutputValidateRole4E438CA5",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:127:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/ProfilerRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesProfilerRoleFD0F0438",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:136:21)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/SnsNotificationRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesSnsNotificationRoleF9DACA4C",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:145:28)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/SqsSendMessageRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesSqsSendMessageRole6951B35A",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:154:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/StepFunctionsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesStepFunctionsRoleFD05369B",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:163:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/StepFunctionsServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesStepFunctionsServiceRoleCBE4EE63",
+            "trace": [
+              "new Role (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:199:18)",
+              "new IamRoles (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/iam-roles.ts:172:33)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:110:22)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/IamRoles/StepFunctionsServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739",
+            "trace": [
+              "new Policy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/policy.ts:89:22)",
+              "Role.addToPrincipalPolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-iam/lib/role.ts:236:28)",
+              "StateMachine.addToRolePolicy (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:304:15)",
+              "new StateMachine (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:285:12)",
+              "new StepFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/step-functions.ts:47:39)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:189:27)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/LambdaLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsLambdaLayerB84EA8CB",
+            "trace": [
+              "new LayerVersion (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/layers.ts:128:39)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:49:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/ErrorHandlerFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsErrorHandlerFunctionB60769DD",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:56:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/ErrorHandlerFunction/ErrorHandlerS3LambdaInvokeVideoPermission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsErrorHandlerFunctionErrorHandlerS3LambdaInvokeVideoPermission7AD8C46D",
+            "trace": [
+              "Function.addPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:130:5)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:73:23)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/ArchiveSourceFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsArchiveSourceFunctionC2D80DB5",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:78:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/CustomResourceFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsCustomResourceFunctionEF26B859",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:92:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/DynamoDbUpdateFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsDynamoDbUpdateFunction975864E9",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:106:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/EncodeFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsEncodeFunctionF8E9C07D",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:124:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/InputValidateFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsInputValidateFunction159C59A4",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:140:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/MediaInfoFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsMediaInfoFunctionE4E12675",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:198:22)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/MediaPackageAssetsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsMediaPackageAssetsFunctionBBCC2F3F",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:211:31)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/OutputValidateFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsOutputValidateFunction38F12556",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:232:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/ProfilerFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsProfilerFunction09767EC6",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:250:21)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/SnsNotificationFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsSnsNotificationFunction2FFA56AD",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:268:28)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/SqsSendMessageFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsSqsSendMessageFunction2C27587E",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:288:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/StepFunctionsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+            "trace": [
+              "new Function (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function.ts:373:35)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:304:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/StepFunctionsFunction/S3LambdaInvokeVideo": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsStepFunctionsFunctionS3LambdaInvokeVideo39DD582C",
+            "trace": [
+              "Function.addPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:130:5)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:322:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/LambdaFunctions/StepFunctionsFunction/CloudWatchLambdaInvokeComplete": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionsStepFunctionsFunctionCloudWatchLambdaInvokeComplete3EAA72E5",
+            "trace": [
+              "Function.addPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:130:5)",
+              "new LambdaFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/lambda-functions.ts:327:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:116:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Rules/EncodeCompleteRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RulesEncodeCompleteRuleE90C2521",
+            "trace": [
+              "new Rule (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events/lib/rule.ts:73:22)",
+              "new Rules (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/rules.ts:21:27)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:136:19)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Rules/EncodeCompleteRule/AllowEventRulejingood2vodLambdaFunctionsStepFunctionsFunction4E5F3FE5": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RulesEncodeCompleteRuleAllowEventRulejingood2vodLambdaFunctionsStepFunctionsFunction4E5F3FE5D99131A2",
+            "trace": [
+              "Function.addPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:130:5)",
+              "Object.addLambdaPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events-targets/lib/util.ts:79:13)",
+              "LambdaFunction.bind (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events-targets/lib/lambda.ts:20:5)",
+              "Rule.addTarget (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events/lib/rule.ts:104:32)",
+              "new Rules (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/rules.ts:30:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:136:19)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Rules/EncodeErrorRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RulesEncodeErrorRule7A73B3FA",
+            "trace": [
+              "new Rule (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events/lib/rule.ts:73:22)",
+              "new Rules (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/rules.ts:34:24)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:136:19)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Rules/EncodeErrorRule/AllowEventRulejingood2vodLambdaFunctionsErrorHandlerFunction5D576805": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RulesEncodeErrorRuleAllowEventRulejingood2vodLambdaFunctionsErrorHandlerFunction5D57680554874CFD",
+            "trace": [
+              "Function.addPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-lambda/lib/function-base.ts:130:5)",
+              "Object.addLambdaPermission (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events-targets/lib/util.ts:79:13)",
+              "LambdaFunction.bind (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events-targets/lib/lambda.ts:20:5)",
+              "Rule.addTarget (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-events/lib/rule.ts:104:32)",
+              "new Rules (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/rules.ts:41:22)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:136:19)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/UUID/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesUUID1685434C",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:30:9)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/AnonymousMetrics/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesAnonymousMetricsE015FCEA",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:39:11)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/MediaConvertEndPoint/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesMediaConvertEndPoint493A1B4F",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:57:33)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/MediaConvertTemplates/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesMediaConvertTemplates82F469B0",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:67:34)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/MediaPackageVod/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesMediaPackageVod7F090D8D",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:83:28)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CustomResources/S3Config/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourcesS3Config641ED51A",
+            "trace": [
+              "new CustomResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/custom-resource.ts:36:21)",
+              "new CustomResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/custom-resources.ts:99:21)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:142:29)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/CloudFrontOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsCloudFrontOutput06459F4F",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:32:23)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/DestinationBucketOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsDestinationBucketOutput64AC2051",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:38:30)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/DynamoDbTableOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsDynamoDbTableOutput2DD0C2CD",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:44:26)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/SourceBucketOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsSourceBucketOutput2238DC26",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:50:25)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/SnsTopicOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsSnsTopicOutput76A2004B",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:56:21)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/SqsQueueArnOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsSqsQueueArnOutput880A7CF0",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:62:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/Outputs/SqsQueueUrlOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OutputsSqsQueueUrlOutput678DDA77",
+            "trace": [
+              "new Outputs (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/outputs.ts:68:19)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:154:21)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/StepFunctions/IngestWorkflowStateMachine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepFunctionsIngestWorkflowStateMachine79F0E7E7",
+            "trace": [
+              "new StateMachine (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:273:22)",
+              "new StepFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/step-functions.ts:47:39)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:189:27)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/StepFunctions/ProcessWorkflowStateMachine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepFunctionsProcessWorkflowStateMachine7036311E",
+            "trace": [
+              "new StateMachine (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:273:22)",
+              "new StepFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/step-functions.ts:111:40)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:189:27)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/StepFunctions/PublishWorkflowStateMachine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StepFunctionsPublishWorkflowStateMachineF77DDA2E",
+            "trace": [
+              "new StateMachine (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/aws-stepfunctions/lib/state-machine.ts:273:22)",
+              "new StepFunctions (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/step-functions.ts:170:40)",
+              "new CdkVodSolutionStack (/Users/jingood2/git/cdk-projects/cdk-vod-solution/lib/cdk-vod-solution-stack.ts:189:27)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/bin/cdk-vod-solution.ts:24:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Module.m._compile (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "main (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1101:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
+              "Module.load (node:internal/modules/cjs/loader:981:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/jingood2-vod/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (node:events:514:26)",
+              "process.emit (node:events:394:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/jingood2-vod/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable",
+            "trace": [
+              "new MetadataResource (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:31:27)",
+              "/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (node:events:514:26)",
+              "process.emit (node:events:394:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/jingood2-vod/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:451:17)",
+              "DefaultStackSynthesizer.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:277:7)",
+              "/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (node:events:514:26)",
+              "process.emit (node:events:394:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ],
+        "/jingood2-vod/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:461:3)",
+              "DefaultStackSynthesizer.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:277:7)",
+              "/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "process.<anonymous> (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/@aws-cdk/core/lib/app.ts:64:45)",
+              "Object.onceWrapper (node:events:514:26)",
+              "process.emit (node:events:394:28)",
+              "process.emit (node:domain:475:12)",
+              "process.emit (/Users/jingood2/git/cdk-projects/cdk-vod-solution/node_modules/source-map-support/source-map-support.js:495:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "jingood2-vod"
+    }
+  }
+}

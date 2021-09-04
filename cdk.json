@@ -1,0 +1,32 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/cdk-vod-solution.ts",
+  "context": {
+    "@aws-cdk/core:enableStackNameDuplicates": "true",
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true",
+    "@aws-cdk/aws-ecr-assets:dockerIgnoreSupport": true,
+    "@aws-cdk/aws-secretsmanager:parseOwnedSecretName": true,
+    "@aws-cdk/aws-kms:defaultKeyPolicies": true,
+    "@aws-cdk/aws-s3:grantWriteWithoutAcl": true,
+    "@aws-cdk/aws-ecs-patterns:removeDefaultDesiredCount": true,
+    "@aws-cdk/core:newStyleStackSynthesis": true,
+    "stackStage": "dev",
+    "stackName": "jingood2-vod",
+    "adminEmail": "jingood2@gmail.com",
+    "workflowTrigger": "VideoFile",
+    "glacier": "DISABLED",
+    "frameCapture": true,
+    "enableMediaPackage": true,
+    "enableSns": true,
+    "enableSqs": true,
+    "acceleratedTranscoding": "PREFERRED",
+    "cloudFrontDomain": "",
+    "prependDomainWithStackStage": true,
+    "hostedZoneId": "",
+    "sendAnonymousMetrics": true,
+    "deployAppSync": false,
+    "deployCognito": false
+
+
+  }
+}

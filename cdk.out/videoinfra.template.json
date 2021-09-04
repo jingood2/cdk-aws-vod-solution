@@ -1,0 +1,4390 @@
+{
+  "Resources": {
+    "CloudFrontOriginAccessIdentitiesCloudfrontDestinationOriginAccessIdentityC5A4B16F": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": "Allows CloudFront to reach the bucket"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CloudFrontOriginAccessIdentities/CloudfrontDestinationOriginAccessIdentity/Resource"
+      }
+    },
+    "DynamoDbTablesVideoInfoDynamoDbTable58A9E9E1": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "guid",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "guid",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "srcBucket",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "startTime",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "srcBucket-startTime-index",
+            "KeySchema": [
+              {
+                "AttributeName": "srcBucket",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "startTime",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ],
+        "PointInTimeRecoverySpecification": {
+          "PointInTimeRecoveryEnabled": true
+        },
+        "TableName": "dev-videoinfra-VideoInfo"
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/DynamoDbTables/VideoInfoDynamoDbTable"
+      }
+    },
+    "KmsKeysSnsKmsMasterKey326B8D82": {
+      "Type": "AWS::KMS::Key",
+      "Properties": {
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              },
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/KmsKeys/SnsKmsMasterKey/Resource"
+      }
+    },
+    "KmsKeysSnsKmsMasterKeyAlias252485D7": {
+      "Type": "AWS::KMS::Alias",
+      "Properties": {
+        "AliasName": "alias/dev-videoinfra-SnsMasterKey",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "KmsKeysSnsKmsMasterKey326B8D82",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/KmsKeys/SnsKmsMasterKey/Alias/Resource"
+      }
+    },
+    "KmsKeysSqsKmsMasterKey2775173E": {
+      "Type": "AWS::KMS::Key",
+      "Properties": {
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":root"
+                    ]
+                  ]
+                }
+              },
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/KmsKeys/SqsKmsMasterKey/Resource"
+      }
+    },
+    "KmsKeysSqsKmsMasterKeyAlias75A0C66C": {
+      "Type": "AWS::KMS::Alias",
+      "Properties": {
+        "AliasName": "alias/dev-videoinfra-SqsMasterKey",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "KmsKeysSqsKmsMasterKey2775173E",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/KmsKeys/SqsKmsMasterKey/Alias/Resource"
+      }
+    },
+    "S3BucketsLogsBucket9F3A5E35": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "LogDeliveryWrite",
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "BucketName": "dev-videoinfra-logs",
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/S3Buckets/LogsBucket/Resource"
+      }
+    },
+    "S3BucketsDestinationBucketD831CA48": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "BucketName": "dev-videoinfra-destination",
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": 3000
+            }
+          ]
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "S3BucketsLogsBucket9F3A5E35"
+          },
+          "LogFilePrefix": "s3-access/"
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/S3Buckets/DestinationBucket/Resource"
+      }
+    },
+    "S3BucketsDestinationBucketPolicy13B47D21": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3BucketsDestinationBucketD831CA48"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "CloudFrontOriginAccessIdentitiesCloudfrontDestinationOriginAccessIdentityC5A4B16F",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":s3:::",
+                    {
+                      "Ref": "S3BucketsDestinationBucketD831CA48"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/S3Buckets/DestinationBucket/Policy/Resource"
+      }
+    },
+    "S3BucketsSourceBucket4A23DAD8": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "BucketName": "dev-videoinfra-source",
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "Id": "dev-videoinfra-source-archive",
+              "Status": "Enabled",
+              "TagFilters": [
+                {
+                  "Key": "key",
+                  "Value": "dev-videoinfra"
+                },
+                {
+                  "Key": "value",
+                  "Value": "GLACIER"
+                }
+              ],
+              "Transitions": [
+                {
+                  "StorageClass": "GLACIER",
+                  "TransitionInDays": 1
+                }
+              ]
+            },
+            {
+              "Id": "dev-videoinfra-source-deep-archive",
+              "Status": "Enabled",
+              "TagFilters": [
+                {
+                  "Key": "key",
+                  "Value": "dev-videoinfra"
+                },
+                {
+                  "Key": "value",
+                  "Value": "DEEP_ARCHIVE"
+                }
+              ],
+              "Transitions": [
+                {
+                  "StorageClass": "DEEP_ARCHIVE",
+                  "TransitionInDays": 1
+                }
+              ]
+            }
+          ]
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": {
+            "Ref": "S3BucketsLogsBucket9F3A5E35"
+          },
+          "LogFilePrefix": "s3-access/"
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "BucketOwnerPreferred"
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/S3Buckets/SourceBucket/Resource"
+      }
+    },
+    "SnsTopicsNotificationsDE98E041": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "dev-videoinfra-Notifications"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/SnsTopics/Notifications/Resource"
+      }
+    },
+    "SnsTopicsNotificationsjingood2gmailcomD79D7C2F": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "SnsTopicsNotificationsDE98E041"
+        },
+        "Endpoint": "jingood2@gmail.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/SnsTopics/Notifications/jingood2@gmail.com/Resource"
+      }
+    },
+    "SqsQueuesSqsDeadLetterQueueB220E2ED": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": "dev-videoinfra-SqsDeadLetterQueue",
+        "VisibilityTimeout": 120
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/SqsQueues/SqsDeadLetterQueue/Resource"
+      }
+    },
+    "SqsQueuesMainSqsQueue3DF56461": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": "dev-videoinfra-MainSqsQueue",
+        "RedrivePolicy": {
+          "deadLetterTargetArn": {
+            "Fn::GetAtt": [
+              "SqsQueuesSqsDeadLetterQueueB220E2ED",
+              "Arn"
+            ]
+          },
+          "maxReceiveCount": 1
+        },
+        "VisibilityTimeout": 120
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/SqsQueues/MainSqsQueue/Resource"
+      }
+    },
+    "CloudFrontsCloudFrontDistributionCachePolicyF0FE97E0": {
+      "Type": "AWS::CloudFront::CachePolicy",
+      "Properties": {
+        "CachePolicyConfig": {
+          "DefaultTTL": 86400,
+          "MaxTTL": 31536000,
+          "MinTTL": 0,
+          "Name": {
+            "Fn::Join": [
+              "",
+              [
+                "videoinfraCloudFrontsCloudFrontDistributionCachePolicy4C4E1700-",
+                {
+                  "Ref": "AWS::Region"
+                }
+              ]
+            ]
+          },
+          "ParametersInCacheKeyAndForwardedToOrigin": {
+            "CookiesConfig": {
+              "CookieBehavior": "none"
+            },
+            "EnableAcceptEncodingBrotli": false,
+            "EnableAcceptEncodingGzip": false,
+            "HeadersConfig": {
+              "HeaderBehavior": "whitelist",
+              "Headers": [
+                "Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+              ]
+            },
+            "QueryStringsConfig": {
+              "QueryStringBehavior": "none"
+            }
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CloudFronts/CloudFrontDistributionCachePolicy/Resource"
+      }
+    },
+    "CloudFrontsCloudFrontDistribution221CB5B5": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "DefaultCacheBehavior": {
+            "AllowedMethods": [
+              "GET",
+              "HEAD"
+            ],
+            "CachePolicyId": {
+              "Ref": "CloudFrontsCloudFrontDistributionCachePolicyF0FE97E0"
+            },
+            "Compress": true,
+            "TargetOriginId": "videoinfraCloudFrontsCloudFrontDistributionOrigin1549F7956",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Logging": {
+            "Bucket": {
+              "Fn::GetAtt": [
+                "S3BucketsLogsBucket9F3A5E35",
+                "RegionalDomainName"
+              ]
+            },
+            "Prefix": "cloudfront/"
+          },
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "S3BucketsDestinationBucketD831CA48",
+                  "RegionalDomainName"
+                ]
+              },
+              "Id": "videoinfraCloudFrontsCloudFrontDistributionOrigin1549F7956",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "CloudFrontOriginAccessIdentitiesCloudfrontDestinationOriginAccessIdentityC5A4B16F"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "PriceClass": "PriceClass_100"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CloudFronts/CloudFrontDistribution/Resource"
+      }
+    },
+    "IamRolesArchiveSourceRoleE62C021F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:PutObjectTagging",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "S3BucketsSourceBucket4A23DAD8",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-ArchiveSourceRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-ArchiveSourceRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/ArchiveSourceRole/Resource"
+      }
+    },
+    "IamRolesCustomResourceRole7D5864F5": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "cloudfront:GetDistributionConfig",
+                    "cloudfront:UpdateDistribution"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":cloudfront::",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":distribution/",
+                        {
+                          "Ref": "CloudFrontsCloudFrontDistribution221CB5B5"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "mediaconvert:CreatePreset",
+                    "mediaconvert:CreateJobTemplate",
+                    "mediaconvert:DeletePreset",
+                    "mediaconvert:DeleteJobTemplate",
+                    "mediaconvert:DescribeEndpoints",
+                    "mediaconvert:ListJobTemplates"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":mediaconvert:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "mediapackage-vod:CreatePackagingConfiguration",
+                    "mediapackage-vod:CreatePackagingGroup",
+                    "mediapackage-vod:ListAssets",
+                    "mediapackage-vod:ListPackagingConfigurations",
+                    "mediapackage-vod:ListPackagingGroups"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*"
+                },
+                {
+                  "Action": [
+                    "mediapackage-vod:DeleteAsset",
+                    "mediapackage-vod:DeletePackagingConfiguration"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":mediapackage-vod:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":assets/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":mediapackage-vod:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":packaging-configurations/packaging-config-*"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Action": [
+                    "mediapackage-vod:DescribePackagingGroup",
+                    "mediapackage-vod:DeletePackagingGroup"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":mediapackage-vod:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":packaging-groups/dev-videoinfra-packaging-group"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "s3:PutBucketNotification",
+                    "s3:PutObject",
+                    "s3:PutObjectAcl"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "S3BucketsSourceBucket4A23DAD8",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-CustomResourceRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-CustomResourceRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/CustomResourceRole/Resource"
+      }
+    },
+    "IamRolesDynamoUpdateRole5280FBC7": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "dynamoDb:UpdateItem",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":dynamodb:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":table/dev-videoinfra-VideoInfo"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-DynamoDbUpdateRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-DynamoUpdateRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/DynamoUpdateRole/Resource"
+      }
+    },
+    "IamRolesEncodeRole27839FDD": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "iam:PassRole",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "IamRolesMediaConvertRoleDBD25335",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "mediaconvert:CreateJob",
+                    "mediaconvert:GetJobTemplate"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":mediaconvert:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:GetObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "S3BucketsSourceBucket4A23DAD8",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:PutObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "S3BucketsDestinationBucketD831CA48",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-EncodeRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-EncodeRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/EncodeRole/Resource"
+      }
+    },
+    "IamRolesErrorHandlerRole4EC25F0C": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "dynamodb:UpdateItem",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":dynamodb:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":table/dev-videoinfra-VideoInfo"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "sns:Publish",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Ref": "SnsTopicsNotificationsDE98E041"
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-ErrorHandlerRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-ErrorHandlerRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/ErrorHandlerRole/Resource"
+      }
+    },
+    "IamRolesErrorHandlerRoleDefaultPolicy63EE2D6E": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "dynamodb:UpdateItem",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":dynamodb:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":table/dev-videoinfra-VideoInfo"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "IamRolesErrorHandlerRoleDefaultPolicy63EE2D6E",
+        "Roles": [
+          {
+            "Ref": "IamRolesErrorHandlerRole4EC25F0C"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/ErrorHandlerRole/DefaultPolicy/Resource"
+      }
+    },
+    "IamRolesInputValidateRoleE2145049": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:GetObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "S3BucketsSourceBucket4A23DAD8",
+                            "Arn"
+                          ]
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-InputValidateRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-InputValidateRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/InputValidateRole/Resource"
+      }
+    },
+    "IamRolesMediaConvertRoleDBD25335": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "mediaconvert.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "execute-api:Invoke",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":execute-api:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Fn::GetAtt": [
+                              "S3BucketsSourceBucket4A23DAD8",
+                              "Arn"
+                            ]
+                          },
+                          "/*"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Fn::GetAtt": [
+                              "S3BucketsDestinationBucketD831CA48",
+                              "Arn"
+                            ]
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-MediaConvertRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-MediaConvertRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/MediaConvertRole/Resource"
+      }
+    },
+    "IamRolesMediaInfoRole0F5707D7": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:GetObject",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        {
+                          "Fn::GetAtt": [
+                            "S3BucketsSourceBucket4A23DAD8",
+                            "Arn"
+                          ]
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-MediaInfoRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-MediaInfoRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/MediaInfoRole/Resource"
+      }
+    },
+    "IamRolesMediaPackageAssetsRoleF5840CEC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "iam:PassRole",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "IamRolesMediaPackageVodRole2F296B82",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*s"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "mediapackage-vod:CreateAsset",
+                  "Effect": "Allow",
+                  "Resource": "*"
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-MediaPackageAssetsRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-MediaPackageAssetsRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/MediaPackageAssetsRole/Resource"
+      }
+    },
+    "IamRolesMediaPackageVodRole2F296B82": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "mediapackage.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:GetBucketLocation",
+                    "s3:GetBucketRequestPayment"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "S3BucketsDestinationBucketD831CA48",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Fn::GetAtt": [
+                              "S3BucketsDestinationBucketD831CA48",
+                              "Arn"
+                            ]
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-MediaPackageVodRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-MediaPackageVodRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/MediaPackageVodRole/Resource"
+      }
+    },
+    "IamRolesOutputValidateRole4E438CA5": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "dynamodb:GetItem",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":dynamodb:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":table/dev-videoinfra-VideoInfo"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "s3:ListBucket",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "S3BucketsDestinationBucketD831CA48",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-OutputValidateRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-OutputValidateRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/OutputValidateRole/Resource"
+      }
+    },
+    "IamRolesProfilerRoleFD0F0438": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "dynamodb:GetItem",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":dynamodb:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":table/dev-videoinfra-VideoInfo"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-ProfilerRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-ProfilerRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/ProfilerRole/Resource"
+      }
+    },
+    "IamRolesSnsNotificationRoleF9DACA4C": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "kms:GenerateDataKey",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "KmsKeysSnsKmsMasterKey326B8D82",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "log:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "sns:Publish",
+                  "Condition": {
+                    "Bool": {
+                      "aws:SecureTransport": "true"
+                    }
+                  },
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Ref": "SnsTopicsNotificationsDE98E041"
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-SnsNotificationRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-SnsNotificationRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/SnsNotificationRole/Resource"
+      }
+    },
+    "IamRolesSqsSendMessageRole6951B35A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "kms:GenerateDataKey",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "KmsKeysSqsKmsMasterKey2775173E",
+                      "Arn"
+                    ]
+                  }
+                },
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "log:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "sqs:SendMessage",
+                  "Condition": {
+                    "Bool": {
+                      "aws:SecureTransport": "true"
+                    }
+                  },
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "SqsQueuesMainSqsQueue3DF56461",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-SqsSendMessageRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-SqsSendMessageRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/SqsSendMessageRole/Resource"
+      }
+    },
+    "IamRolesStepFunctionsRoleFD05369B": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:dev-videoinfra-ErrorHandlerLambdaFunction"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":logs:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":log-group:/aws/lambda/*"
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "Action": "states:StartExecution",
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":stateMachine:dev-videoinfra-IngestWorkflowStateMachine"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":stateMachine:dev-videoinfra-ProcessWorkflowStateMachine"
+                        ]
+                      ]
+                    },
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ":",
+                          {
+                            "Ref": "AWS::AccountId"
+                          },
+                          ":stateMachine:dev-videoinfra-PublishWorkflowStateMachine"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-StepFunctionsRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-StepFunctionsRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/StepFunctionsRole/Resource"
+      }
+    },
+    "IamRolesStepFunctionsServiceRoleCBE4EE63": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "states.",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ".amazonaws.com"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "lambda:InvokeFunction",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":lambda:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":function:*"
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "dev-videoinfra-StepFunctionsServiceRolePolicyDocument"
+          }
+        ],
+        "RoleName": "dev-videoinfra-StepFunctionsServiceRole"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/StepFunctionsServiceRole/Resource"
+      }
+    },
+    "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsInputValidateFunction159C59A4",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsMediaInfoFunctionE4E12675",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsDynamoDbUpdateFunction975864E9",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsSnsNotificationFunction2FFA56AD",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsProfilerFunction09767EC6",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsEncodeFunctionF8E9C07D",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsOutputValidateFunction38F12556",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsArchiveSourceFunctionC2D80DB5",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsMediaPackageAssetsFunctionBBCC2F3F",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsSqsSendMessageFunction2C27587E",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739",
+        "Roles": [
+          {
+            "Ref": "IamRolesStepFunctionsServiceRoleCBE4EE63"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/IamRoles/StepFunctionsServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "LambdaFunctionsErrorHandlerFunctionB60769DD": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdS3Bucket332F5F38"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdS3VersionKey137E75D1"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdS3VersionKey137E75D1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesErrorHandlerRole4EC25F0C",
+            "Arn"
+          ]
+        },
+        "Description": "Captures and processes workflow errors",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DynamoDBTable": "dev-videoinfra-VideoInfo",
+            "SnsTopic": {
+              "Ref": "SnsTopicsNotificationsDE98E041"
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-ErrorHandlerLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesErrorHandlerRoleDefaultPolicy63EE2D6E",
+        "IamRolesErrorHandlerRole4EC25F0C"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/ErrorHandlerFunction/Resource",
+        "aws:asset:path": "asset.c6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbd",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsErrorHandlerFunctionErrorHandlerS3LambdaInvokeVideoPermission7AD8C46D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsErrorHandlerFunctionB60769DD",
+            "Arn"
+          ]
+        },
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/ErrorHandlerFunction/ErrorHandlerS3LambdaInvokeVideoPermission"
+      }
+    },
+    "LambdaFunctionsArchiveSourceFunctionC2D80DB5": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79S3Bucket5AA80CCB"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79S3VersionKeyCFD9B713"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79S3VersionKeyCFD9B713"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesArchiveSourceRoleE62C021F",
+            "Arn"
+          ]
+        },
+        "Description": "Updates tags on source files to enable Glacier",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-ArchiveSourceLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesArchiveSourceRoleE62C021F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/ArchiveSourceFunction/Resource",
+        "aws:asset:path": "asset.3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsCustomResourceFunctionEF26B859": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188S3Bucket82381A65"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188S3VersionKey09342DDD"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188S3VersionKey09342DDD"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesCustomResourceRole7D5864F5",
+            "Arn"
+          ]
+        },
+        "Description": "Used to deploy resources not supported by CloudFormation",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "FunctionName": "dev-videoinfra-CustomResourceLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 180
+      },
+      "DependsOn": [
+        "IamRolesCustomResourceRole7D5864F5"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/CustomResourceFunction/Resource",
+        "aws:asset:path": "asset.9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsDynamoDbUpdateFunction975864E9": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8S3BucketAE3CB2F6"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8S3VersionKeyEDE3A26C"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8S3VersionKeyEDE3A26C"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesDynamoUpdateRole5280FBC7",
+            "Arn"
+          ]
+        },
+        "Description": "Updates DynamoDB with event data",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DynamoDBTable": "dev-videoinfra-VideoInfo",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-DynamoDbUpdateLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesDynamoUpdateRole5280FBC7"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/DynamoDbUpdateFunction/Resource",
+        "aws:asset:path": "asset.968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsEncodeFunctionF8E9C07D": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0S3BucketEF8A0ABB"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0S3VersionKeyB0CCF4E9"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0S3VersionKeyB0CCF4E9"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesEncodeRole27839FDD",
+            "Arn"
+          ]
+        },
+        "Description": "Creates a MediaConvert encode job",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "MediaConvertRole": {
+              "Fn::GetAtt": [
+                "IamRolesMediaConvertRoleDBD25335",
+                "Arn"
+              ]
+            },
+            "EndPoint": {
+              "Fn::GetAtt": [
+                "CustomResourcesMediaConvertEndPoint493A1B4F",
+                "EndpointUrl"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-EncodeLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesEncodeRole27839FDD"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/EncodeFunction/Resource",
+        "aws:asset:path": "asset.5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsInputValidateFunction159C59A4": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eS3Bucket1FFDEB06"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eS3VersionKey3F436654"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eS3VersionKey3F436654"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesInputValidateRoleE2145049",
+            "Arn"
+          ]
+        },
+        "Description": "Validates the input given to the workflow",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "WorkflowName": "dev-videoinfra",
+            "FrameCapture": "false",
+            "ArchiveSource": "DISABLED",
+            "EnableMediaPackage": "false",
+            "InputRotate": "DEGREE_0",
+            "EnableSns": "false",
+            "EnableSqs": "false",
+            "AcceleratedTranscoding": "PREFERRED",
+            "Source": {
+              "Ref": "S3BucketsSourceBucket4A23DAD8"
+            },
+            "Destination": {
+              "Ref": "S3BucketsDestinationBucketD831CA48"
+            },
+            "CloudFront": {
+              "Fn::GetAtt": [
+                "CloudFrontsCloudFrontDistribution221CB5B5",
+                "DomainName"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-InputValidateLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesInputValidateRoleE2145049"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/InputValidateFunction/Resource",
+        "aws:asset:path": "asset.7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554e",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsMediaInfoFunctionE4E12675": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bS3BucketF9ED23F2"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bS3VersionKey5FA1ECF7"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bS3VersionKey5FA1ECF7"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesMediaInfoRole0F5707D7",
+            "Arn"
+          ]
+        },
+        "Description": "Runs MediaInfo on a pre-signed S3 URL",
+        "Environment": {
+          "Variables": {
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-MediaInfoLambdaFunction",
+        "Handler": "lambda_function.lambda_handler",
+        "Runtime": "python3.7",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesMediaInfoRole0F5707D7"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/MediaInfoFunction/Resource",
+        "aws:asset:path": "asset.934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4b",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsMediaPackageAssetsFunctionBBCC2F3F": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbS3BucketE9B733C1"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbS3VersionKey56575274"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbS3VersionKey56575274"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesMediaPackageAssetsRoleF5840CEC",
+            "Arn"
+          ]
+        },
+        "Description": "Ingests an asset into MediaPackage-VOD",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "MediaPackageVodRole": {
+              "Fn::GetAtt": [
+                "IamRolesMediaPackageVodRole2F296B82",
+                "Arn"
+              ]
+            },
+            "GroupId": {
+              "Fn::GetAtt": [
+                "CustomResourcesMediaPackageVod7F090D8D",
+                "GroupId"
+              ]
+            },
+            "GroupDomainName": {
+              "Fn::GetAtt": [
+                "CustomResourcesMediaPackageVod7F090D8D",
+                "GroupDomainName"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-MediaPackageAssetsLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 300
+      },
+      "DependsOn": [
+        "IamRolesMediaPackageAssetsRoleF5840CEC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/MediaPackageAssetsFunction/Resource",
+        "aws:asset:path": "asset.40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09db",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsOutputValidateFunction38F12556": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85S3BucketF8B5AC35"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85S3VersionKeyF71A95FD"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85S3VersionKeyF71A95FD"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesOutputValidateRole4E438CA5",
+            "Arn"
+          ]
+        },
+        "Description": "Parses MediaConvert job output",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DynamoDBTable": "dev-videoinfra-VideoInfo",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "EndPoint": {
+              "Fn::GetAtt": [
+                "CustomResourcesMediaConvertEndPoint493A1B4F",
+                "EndpointUrl"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-OutputValidateLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesOutputValidateRole4E438CA5"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/OutputValidateFunction/Resource",
+        "aws:asset:path": "asset.2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsProfilerFunction09767EC6": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9S3Bucket79F63297"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9S3VersionKey3FA9B9CA"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9S3VersionKey3FA9B9CA"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesProfilerRoleFD0F0438",
+            "Arn"
+          ]
+        },
+        "Description": "Sets an EncodeProfile based on mediainfo output",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DynamoDBTable": "dev-videoinfra-VideoInfo",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-ProfilerLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesProfilerRoleFD0F0438"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/ProfilerFunction/Resource",
+        "aws:asset:path": "asset.7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsSnsNotificationFunction2FFA56AD": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204S3BucketA6EFCB6E"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204S3VersionKeyEAB9C6C0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204S3VersionKeyEAB9C6C0"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesSnsNotificationRoleF9DACA4C",
+            "Arn"
+          ]
+        },
+        "Description": "Sends a notification when the encode job is completed",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "SnsTopic": {
+              "Ref": "SnsTopicsNotificationsDE98E041"
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-SnsNotificationLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesSnsNotificationRoleF9DACA4C"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/SnsNotificationFunction/Resource",
+        "aws:asset:path": "asset.7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsSqsSendMessageFunction2C27587E": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08S3Bucket2DB792FB"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08S3VersionKey06B45FCB"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08S3VersionKey06B45FCB"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesSqsSendMessageRole6951B35A",
+            "Arn"
+          ]
+        },
+        "Description": "Publish the workflow results to an SQS queue",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "SqsQueue": {
+              "Ref": "SqsQueuesMainSqsQueue3DF56461"
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-SqsSendMessageLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "IamRolesSqsSendMessageRole6951B35A"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/SqsSendMessageFunction/Resource",
+        "aws:asset:path": "asset.9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsStepFunctionsFunctionD2E87E65": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cS3BucketCC3BB864"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cS3VersionKey5B22B4C5"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cS3VersionKey5B22B4C5"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRolesStepFunctionsRoleFD05369B",
+            "Arn"
+          ]
+        },
+        "Description": "Creates a unique identifier (GUID) and executes the Ingest StateMachine",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "IngestWorkflow": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":states:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":stateMachine:dev-videoinfra-IngestWorkflowStateMachine"
+                ]
+              ]
+            },
+            "ProcessWorkflow": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":states:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":stateMachine:dev-videoinfra-ProcessWorkflowStateMachine"
+                ]
+              ]
+            },
+            "PublishWorkflow": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":states:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":stateMachine:dev-videoinfra-PublishWorkflowStateMachine"
+                ]
+              ]
+            },
+            "ErrorHandler": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            }
+          }
+        },
+        "FunctionName": "dev-videoinfra-StepFunctionsLambdaFunction",
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x"
+      },
+      "DependsOn": [
+        "IamRolesStepFunctionsRoleFD05369B"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/StepFunctionsFunction/Resource",
+        "aws:asset:path": "asset.2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3c",
+        "aws:asset:property": "Code"
+      }
+    },
+    "LambdaFunctionsStepFunctionsFunctionS3LambdaInvokeVideo39DD582C": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+            "Arn"
+          ]
+        },
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/StepFunctionsFunction/S3LambdaInvokeVideo"
+      }
+    },
+    "LambdaFunctionsStepFunctionsFunctionCloudWatchLambdaInvokeComplete3EAA72E5": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/LambdaFunctions/StepFunctionsFunction/CloudWatchLambdaInvokeComplete"
+      }
+    },
+    "RulesEncodeCompleteRuleE90C2521": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "MediaConvert Completed event rule",
+        "EventPattern": {
+          "source": [
+            "aws.mediaconvert"
+          ],
+          "detail": {
+            "status": [
+              "COMPLETE"
+            ]
+          }
+        },
+        "Name": "dev-videoinfra-EncodeCompleteRule",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+                "Arn"
+              ]
+            },
+            "Id": "Target0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/Rules/EncodeCompleteRule/Resource"
+      }
+    },
+    "RulesEncodeCompleteRuleAllowEventRulevideoinfraLambdaFunctionsStepFunctionsFunction9F6ED8F7A2BEED8D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "RulesEncodeCompleteRuleE90C2521",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/Rules/EncodeCompleteRule/AllowEventRulevideoinfraLambdaFunctionsStepFunctionsFunction9F6ED8F7"
+      }
+    },
+    "RulesEncodeErrorRule7A73B3FA": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "MediaConvert Error event rule",
+        "EventPattern": {
+          "source": [
+            "aws.mediaconvert"
+          ],
+          "detail": {
+            "status": [
+              "ERROR"
+            ]
+          }
+        },
+        "Name": "dev-videoinfra-EncodeErrorRule",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "LambdaFunctionsErrorHandlerFunctionB60769DD",
+                "Arn"
+              ]
+            },
+            "Id": "Target0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/Rules/EncodeErrorRule/Resource"
+      }
+    },
+    "RulesEncodeErrorRuleAllowEventRulevideoinfraLambdaFunctionsErrorHandlerFunction46E1CF019DFDCDE7": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsErrorHandlerFunctionB60769DD",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "RulesEncodeErrorRule7A73B3FA",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/Rules/EncodeErrorRule/AllowEventRulevideoinfraLambdaFunctionsErrorHandlerFunction46E1CF01"
+      }
+    },
+    "CustomResourcesMediaConvertEndPoint493A1B4F": {
+      "Type": "Custom::LoadLambda",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsCustomResourceFunctionEF26B859",
+            "Arn"
+          ]
+        },
+        "Resource": "EndPoint"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CustomResources/MediaConvertEndPoint/Default"
+      }
+    },
+    "CustomResourcesMediaConvertTemplates82F469B0": {
+      "Type": "Custom::LoadLambda",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsCustomResourceFunctionEF26B859",
+            "Arn"
+          ]
+        },
+        "Resource": "MediaConvertTemplates",
+        "StackName": "dev-videoinfra",
+        "EndPoint": {
+          "Fn::GetAtt": [
+            "CustomResourcesMediaConvertEndPoint493A1B4F",
+            "EndpointUrl"
+          ]
+        },
+        "EnableMediaPackage": false,
+        "EnableNewTemplates": true
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CustomResources/MediaConvertTemplates/Default"
+      }
+    },
+    "CustomResourcesMediaPackageVod7F090D8D": {
+      "Type": "Custom::LoadLambda",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsCustomResourceFunctionEF26B859",
+            "Arn"
+          ]
+        },
+        "Resource": "MediaPackageVod",
+        "StackName": "dev-videoinfra",
+        "GroupId": "dev-videoinfra-packaging-group",
+        "PackagingConfigurations": "HLS,DASH,MSS,CMAF",
+        "DistributionId": {
+          "Ref": "CloudFrontsCloudFrontDistribution221CB5B5"
+        },
+        "EnableMediaPackage": false
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CustomResources/MediaPackageVod/Default"
+      }
+    },
+    "CustomResourcesS3Config641ED51A": {
+      "Type": "Custom::S3",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsCustomResourceFunctionEF26B859",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "Ref": "S3BucketsSourceBucket4A23DAD8"
+        },
+        "IngestArn": {
+          "Fn::GetAtt": [
+            "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+            "Arn"
+          ]
+        },
+        "Resource": "S3Notification",
+        "WorkflowTrigger": "VideoFile"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CustomResources/S3Config/Default"
+      }
+    },
+    "StepFunctionsIngestWorkflowStateMachine79F0E7E7": {
+      "Type": "AWS::StepFunctions::StateMachine",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "IamRolesStepFunctionsServiceRoleCBE4EE63",
+            "Arn"
+          ]
+        },
+        "DefinitionString": {
+          "Fn::Join": [
+            "",
+            [
+              "{\"StartAt\":\"IngestWorkflowInputValidateTask\",\"States\":{\"IngestWorkflowInputValidateTask\":{\"Next\":\"IngestWorkflowMediaInfoTask\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsInputValidateFunction159C59A4",
+                  "Arn"
+                ]
+              },
+              "\"},\"IngestWorkflowMediaInfoTask\":{\"Next\":\"IngestWorkflowDynamoDbUpdateTask\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsMediaInfoFunctionE4E12675",
+                  "Arn"
+                ]
+              },
+              "\"},\"IngestWorkflowDynamoDbUpdateTask\":{\"Next\":\"IngestWorkflowSnsChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsDynamoDbUpdateFunction975864E9",
+                  "Arn"
+                ]
+              },
+              "\"},\"IngestWorkflowSnsChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.enableSns\",\"BooleanEquals\":true,\"Next\":\"IngestWorkflowSnsNotificationsTask\"}],\"Default\":\"IngestWorkflowProcessExecuteTask\"},\"IngestWorkflowProcessExecuteTask\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsStepFunctionsFunctionD2E87E65",
+                  "Arn"
+                ]
+              },
+              "\"},\"IngestWorkflowSnsNotificationsTask\":{\"Next\":\"IngestWorkflowProcessExecuteTask\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsSnsNotificationFunction2FFA56AD",
+                  "Arn"
+                ]
+              },
+              "\"}}}"
+            ]
+          ]
+        },
+        "StateMachineName": "dev-videoinfra-IngestWorkflowStateMachine"
+      },
+      "DependsOn": [
+        "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739",
+        "IamRolesStepFunctionsServiceRoleCBE4EE63"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/StepFunctions/IngestWorkflowStateMachine/Resource"
+      }
+    },
+    "StepFunctionsProcessWorkflowStateMachine7036311E": {
+      "Type": "AWS::StepFunctions::StateMachine",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "IamRolesStepFunctionsServiceRoleCBE4EE63",
+            "Arn"
+          ]
+        },
+        "DefinitionString": {
+          "Fn::Join": [
+            "",
+            [
+              "{\"StartAt\":\"ProcessWorkflowProfilerTask\",\"States\":{\"ProcessWorkflowProfilerTask\":{\"Next\":\"ProcessWorkflowEncodingProfileCheckChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsProfilerFunction09767EC6",
+                  "Arn"
+                ]
+              },
+              "\"},\"ProcessWorkflowEncodingProfileCheckChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.isCustomTemplate\",\"BooleanEquals\":true,\"Next\":\"ProcessWorkflowCustomJobTemplatePass\"},{\"Variable\":\"$.encodingProfile\",\"NumericEquals\":2160,\"Next\":\"ProcessWorkflowJobTemplate2160pPass\"},{\"Variable\":\"$.encodingProfile\",\"NumericEquals\":1080,\"Next\":\"ProcessWorkflowJobTemplate1080pPass\"},{\"Variable\":\"$.encodingProfile\",\"NumericEquals\":720,\"Next\":\"ProcessWorkflowJobTemplate720pPass\"}]},\"ProcessWorkflowCustomJobTemplatePass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowAcceleratedTranscodingCheckChoice\"},\"ProcessWorkflowAcceleratedTranscodingCheckChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.acceleratedTranscoding\",\"StringEquals\":\"ENABLED\",\"Next\":\"processWorkflowAcceleratedTranscodingEnabledPass\"},{\"Variable\":\"$.acceleratedTranscoding\",\"StringEquals\":\"PREFERRED\",\"Next\":\"processWorkflowAcceleratedTranscodingPreferredPass\"},{\"Variable\":\"$.acceleratedTranscoding\",\"StringEquals\":\"DISABLED\",\"Next\":\"ProcessWorkflowAcceleratedTranscodingDisabledPass\"}]},\"ProcessWorkflowJobTemplate2160pPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowAcceleratedTranscodingCheckChoice\"},\"ProcessWorkflowJobTemplate1080pPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowAcceleratedTranscodingCheckChoice\"},\"ProcessWorkflowJobTemplate720pPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowAcceleratedTranscodingCheckChoice\"},\"processWorkflowAcceleratedTranscodingEnabledPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowFrameCaptureCheckChoice\"},\"ProcessWorkflowFrameCaptureCheckChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.frameCapture\",\"BooleanEquals\":true,\"Next\":\"ProcessWorkflowFrameCaptureOnPass\"}],\"Default\":\"ProcessWorkflowFrameCaptureOffPass\"},\"processWorkflowAcceleratedTranscodingPreferredPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowFrameCaptureCheckChoice\"},\"ProcessWorkflowAcceleratedTranscodingDisabledPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowFrameCaptureCheckChoice\"},\"ProcessWorkflowFrameCaptureOffPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowEncodeJobSubmitTask\"},\"ProcessWorkflowEncodeJobSubmitTask\":{\"Next\":\"ProcessWorkflowDynamoDbUpdateTask\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsEncodeFunctionF8E9C07D",
+                  "Arn"
+                ]
+              },
+              "\"},\"ProcessWorkflowFrameCaptureOnPass\":{\"Type\":\"Pass\",\"Next\":\"ProcessWorkflowEncodeJobSubmitTask\"},\"ProcessWorkflowDynamoDbUpdateTask\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsDynamoDbUpdateFunction975864E9",
+                  "Arn"
+                ]
+              },
+              "\"}}}"
+            ]
+          ]
+        },
+        "StateMachineName": "dev-videoinfra-ProcessWorkflowStateMachine"
+      },
+      "DependsOn": [
+        "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739",
+        "IamRolesStepFunctionsServiceRoleCBE4EE63"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/StepFunctions/ProcessWorkflowStateMachine/Resource"
+      }
+    },
+    "StepFunctionsPublishWorkflowStateMachineF77DDA2E": {
+      "Type": "AWS::StepFunctions::StateMachine",
+      "Properties": {
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "IamRolesStepFunctionsServiceRoleCBE4EE63",
+            "Arn"
+          ]
+        },
+        "DefinitionString": {
+          "Fn::Join": [
+            "",
+            [
+              "{\"StartAt\":\"PublishWorkflowValidateEncodingOutputTask\",\"States\":{\"PublishWorkflowValidateEncodingOutputTask\":{\"Next\":\"PublishWorkflowArchiveSourceChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsOutputValidateFunction38F12556",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowArchiveSourceChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.archiveSource\",\"StringEquals\":\"GLACIER\",\"Next\":\"PublishWorkflowArchiveTask\"},{\"Variable\":\"$.archiveSource\",\"StringEquals\":\"DEEP_ARCHIVE\",\"Next\":\"PublishWorkflowDeepArchiveTask\"}],\"Default\":\"PublishWorkflowMediaPackageChoice\"},\"PublishWorkflowMediaPackageChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.enableMediaPackage\",\"BooleanEquals\":true,\"Next\":\"PublishWorkflowMediaPackageAssetsTask\"}],\"Default\":\"PublishWorkflowDynamoDbUpdateTask\"},\"PublishWorkflowArchiveTask\":{\"Next\":\"PublishWorkflowMediaPackageChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsArchiveSourceFunctionC2D80DB5",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowDeepArchiveTask\":{\"Next\":\"PublishWorkflowMediaPackageChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsArchiveSourceFunctionC2D80DB5",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowDynamoDbUpdateTask\":{\"Next\":\"PublishWorkflowSqsChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsDynamoDbUpdateFunction975864E9",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowMediaPackageAssetsTask\":{\"Next\":\"PublishWorkflowDynamoDbUpdateTask\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsMediaPackageAssetsFunctionBBCC2F3F",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowSqsChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.enableSqs\",\"BooleanEquals\":true,\"Next\":\"PublishWorkflowSqsSendMessageTask\"}],\"Default\":\"PublishWorkflowSnsChoice\"},\"PublishWorkflowSnsChoice\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.enableSns\",\"BooleanEquals\":true,\"Next\":\"PublishWorkflowSnsNotificationTask\"}],\"Default\":\"PublishWorkflowCompletePass\"},\"PublishWorkflowSqsSendMessageTask\":{\"Next\":\"PublishWorkflowSnsChoice\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsSqsSendMessageFunction2C27587E",
+                  "Arn"
+                ]
+              },
+              "\"},\"PublishWorkflowCompletePass\":{\"Type\":\"Pass\",\"End\":true},\"PublishWorkflowSnsNotificationTask\":{\"Next\":\"PublishWorkflowCompletePass\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"",
+              {
+                "Fn::GetAtt": [
+                  "LambdaFunctionsSnsNotificationFunction2FFA56AD",
+                  "Arn"
+                ]
+              },
+              "\"}}}"
+            ]
+          ]
+        },
+        "StateMachineName": "dev-videoinfra-PublishWorkflowStateMachine"
+      },
+      "DependsOn": [
+        "IamRolesStepFunctionsServiceRoleDefaultPolicyE5A6C739",
+        "IamRolesStepFunctionsServiceRoleCBE4EE63"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/StepFunctions/PublishWorkflowStateMachine/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAE21S227CMAz9Ft5DuEk8D5iQ0DbBgB9IUwOmbcLihAlV/fc5KYhu2pPPiX2OXbsjORoP5bD3or6pr/NiUGvrQNY7r3QhFtaQd0F7MSMCz49HNEexOJiNcqoCD04sAnlbbYFscBpirovXwV+Cj4i9cvRoTSNir1qXNuQHZ42X9dohG8+0BqJVDsajvyVNrFnGmv8rlD7Bxpao2+oOfUUeHLMQG8ZclzcivxlV2TyTnNmrrARRVCTrN0g+McxKVBRJAo2giaznQReQvuWO2vAc4BdvyVwRsNqw+95eUMeyFuxCRtrh5TFhl7PiixWfAULaYgKNQFXJemvLdssxPnu3qBGlqrJcyXoZjH5Yd/EGXIVEbZNJX8W7kkznFXDlxXLfbbi34MhVHi6HuwMnFyeLfNsNKwX/EB4+eO1okqDL/wj7XlFB8j2NtzJXW0DTCGNzkGcaXEdTOZXj3pkQ+y7weSuQ2zb+ALU0uGqjAgAA"
+      },
+      "Metadata": {
+        "aws:cdk:path": "videoinfra/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Parameters": {
+    "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdS3Bucket332F5F38": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"c6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbd\""
+    },
+    "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdS3VersionKey137E75D1": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"c6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbd\""
+    },
+    "AssetParametersc6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbdArtifactHash83F20045": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"c6d6c76cbe151da0062ecebf457f8ef38edb2e04d3d81e96a0c632330bfaccbd\""
+    },
+    "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79S3Bucket5AA80CCB": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79\""
+    },
+    "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79S3VersionKeyCFD9B713": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79\""
+    },
+    "AssetParameters3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79ArtifactHashEF56289C": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"3a40031c12e655f644a942961a86cd0354f2adf326acf7a69d4b068724397e79\""
+    },
+    "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188S3Bucket82381A65": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188\""
+    },
+    "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188S3VersionKey09342DDD": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188\""
+    },
+    "AssetParameters9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188ArtifactHash41995DB3": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"9b779f3a70a7e7aa7f5d1cbf54b44faef99149fd148132d1b0f0c5bd22404188\""
+    },
+    "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8S3BucketAE3CB2F6": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8\""
+    },
+    "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8S3VersionKeyEDE3A26C": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8\""
+    },
+    "AssetParameters968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8ArtifactHash41ACA269": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"968e9af0f80ea124ebed0a2a481bb76075ad009b586daa9d34b82118d759b7c8\""
+    },
+    "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0S3BucketEF8A0ABB": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0\""
+    },
+    "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0S3VersionKeyB0CCF4E9": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0\""
+    },
+    "AssetParameters5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0ArtifactHash4501FB4A": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"5f9bc9d14a035378fec751a22d93371d4086d49df1c50f778ffd3e65282b98f0\""
+    },
+    "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eS3Bucket1FFDEB06": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554e\""
+    },
+    "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eS3VersionKey3F436654": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554e\""
+    },
+    "AssetParameters7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554eArtifactHashF36EE5BA": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"7e6bba41fc0e85760597571b06a1eaea839e842eaf4d774e8cdabf4f4d21554e\""
+    },
+    "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bS3BucketF9ED23F2": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4b\""
+    },
+    "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bS3VersionKey5FA1ECF7": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4b\""
+    },
+    "AssetParameters934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4bArtifactHashD31B2829": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"934423e0677a1e779035a084157154eac88a8bb31941f5e741ab488610a0af4b\""
+    },
+    "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbS3BucketE9B733C1": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09db\""
+    },
+    "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbS3VersionKey56575274": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09db\""
+    },
+    "AssetParameters40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09dbArtifactHashAA8D2414": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"40f4718f543491c6d722dfd855a4097cfd06ff787725003d3a1c84acb72a09db\""
+    },
+    "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85S3BucketF8B5AC35": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85\""
+    },
+    "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85S3VersionKeyF71A95FD": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85\""
+    },
+    "AssetParameters2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85ArtifactHash22CC7842": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"2a217864cba285b8b63d640a3f980db4cac689dcf45f22d0f01f80cfba3aef85\""
+    },
+    "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9S3Bucket79F63297": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9\""
+    },
+    "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9S3VersionKey3FA9B9CA": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9\""
+    },
+    "AssetParameters7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9ArtifactHashE8C70289": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"7910f32f0db6c33f5b0f033b33d090107b3d477d3b6e669b2d1f59d1847c76a9\""
+    },
+    "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204S3BucketA6EFCB6E": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204\""
+    },
+    "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204S3VersionKeyEAB9C6C0": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204\""
+    },
+    "AssetParameters7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204ArtifactHash4E8E8AC5": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"7a2eaded2dea13e4bdfadc33215c9cc0f6f74f52c04bf9b345751917b5324204\""
+    },
+    "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08S3Bucket2DB792FB": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08\""
+    },
+    "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08S3VersionKey06B45FCB": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08\""
+    },
+    "AssetParameters9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08ArtifactHash7C4C43A1": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"9784495746df7225d07afef0bee4df2d609336a959ee2f9c2821709475d00a08\""
+    },
+    "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cS3BucketCC3BB864": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3c\""
+    },
+    "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cS3VersionKey5B22B4C5": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3c\""
+    },
+    "AssetParameters2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3cArtifactHashE21F96A1": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"2b538f61ad901f212993ec1bb45cf9345a3a3140fdfd0c608de20c99ae14ae3c\""
+    }
+  },
+  "Outputs": {
+    "OutputsCloudFrontOutput06459F4F": {
+      "Description": "dev-videoinfra CloudFront Domain Name",
+      "Value": {
+        "Fn::GetAtt": [
+          "CloudFrontsCloudFrontDistribution221CB5B5",
+          "DomainName"
+        ]
+      },
+      "Export": {
+        "Name": "dev-videoinfra-CloudFront"
+      }
+    },
+    "OutputsDestinationBucketOutput64AC2051": {
+      "Description": "dev-videoinfra Destination S3 Bucket",
+      "Value": {
+        "Ref": "S3BucketsDestinationBucketD831CA48"
+      },
+      "Export": {
+        "Name": "dev-videoinfra-DestinationBucket"
+      }
+    },
+    "OutputsDynamoDbTableOutput2DD0C2CD": {
+      "Description": "dev-videoinfra DynamoDB Table",
+      "Value": "dev-videoinfra-VideoInfo",
+      "Export": {
+        "Name": "dev-videoinfra-DynamoDbTable"
+      }
+    },
+    "OutputsSourceBucketOutput2238DC26": {
+      "Description": "dev-videoinfra Source S3 Bucket",
+      "Value": {
+        "Ref": "S3BucketsSourceBucket4A23DAD8"
+      },
+      "Export": {
+        "Name": "dev-videoinfra-SourceBucket"
+      }
+    },
+    "OutputsSnsTopicOutput76A2004B": {
+      "Description": "dev-videoinfra SNS Notification Topic",
+      "Value": {
+        "Ref": "SnsTopicsNotificationsDE98E041"
+      },
+      "Export": {
+        "Name": "dev-videoinfra-SnsTopic"
+      }
+    },
+    "OutputsSqsQueueArnOutput880A7CF0": {
+      "Description": "dev-videoinfra SQS Queue ARN",
+      "Value": {
+        "Fn::GetAtt": [
+          "SqsQueuesMainSqsQueue3DF56461",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "dev-videoinfra-SqsQueueArn"
+      }
+    },
+    "OutputsSqsQueueUrlOutput678DDA77": {
+      "Description": "dev-videoinfra SQS Queue URL",
+      "Value": {
+        "Ref": "SqsQueuesMainSqsQueue3DF56461"
+      },
+      "Export": {
+        "Name": "dev-videoinfra-SqsQueueUrl"
+      }
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
